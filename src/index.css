@@ -175,6 +175,13 @@
   .floating-action {
     @apply fixed bottom-6 right-6 z-50 rounded-full shadow-xl transition-transform hover:scale-110;
   }
+
+  /* Animation Delays */
+  .animation-delay-200 { animation-delay: 200ms; }
+  .animation-delay-400 { animation-delay: 400ms; }
+  .animation-delay-500 { animation-delay: 500ms; }
+  .animation-delay-1000 { animation-delay: 1000ms; }
+  .animation-delay-2000 { animation-delay: 2000ms; }
 }
 
 @layer components {
