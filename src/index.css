@@ -2,39 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Civic Engagement Platform Design System - Community First Theme */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core Colors - Civic Theme */
+    --background: 220 20% 98%;
+    --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 222 47% 11%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Trust Blue for civic engagement */
+    --primary: 213 94% 68%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 213 100% 85%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Success Green for resolved issues */
+    --secondary: 142 76% 36%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-glow: 142 70% 55%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Status Colors */
+    --status-new: 0 84% 60%;
+    --status-progress: 45 93% 58%;
+    --status-resolved: 142 76% 36%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: 220 20% 95%;
+    --muted-foreground: 220 10% 46%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --accent: 220 20% 95%;
+    --accent-foreground: 222 47% 11%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 20% 90%;
+    --input: 220 20% 95%;
+    --ring: 213 94% 68%;
+
+    /* Civic Design Tokens */
+    --hero-gradient: linear-gradient(135deg, hsl(222 47% 11% / 0.9), hsl(222 47% 11% / 0.4));
+    --glass-bg: hsl(0 0% 100% / 0.1);
+    --glass-border: hsl(0 0% 100% / 0.2);
+    --map-overlay: hsl(220 20% 98% / 0.95);
+    
+    /* Shadows - Civic Enhancement */
+    --shadow-civic: 0 10px 30px -10px hsl(213 94% 68% / 0.2);
+    --shadow-glass: 0 8px 32px 0 hsl(0 0% 0% / 0.12);
+    --shadow-elevated: 0 20px 40px -10px hsl(0 0% 0% / 0.15);
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* Animation Durations */
+    --duration-fast: 200ms;
+    --duration-normal: 300ms;
+    --duration-slow: 500ms;
 
     --radius: 0.5rem;
 
@@ -56,33 +84,45 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 222 47% 8%;
+    --foreground: 220 20% 98%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 220 20% 98%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 220 20% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 213 94% 68%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 213 100% 85%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 142 76% 36%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-glow: 142 70% 55%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --status-new: 0 84% 60%;
+    --status-progress: 45 93% 58%;
+    --status-resolved: 142 76% 36%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --muted: 222 47% 15%;
+    --muted-foreground: 220 15% 65%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --accent: 222 47% 15%;
+    --accent-foreground: 220 20% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 220 20% 98%;
+
+    --border: 222 47% 15%;
+    --input: 222 47% 15%;
+    --ring: 213 94% 68%;
+
+    /* Dark Mode Overrides */
+    --glass-bg: hsl(0 0% 0% / 0.2);
+    --glass-border: hsl(0 0% 100% / 0.1);
+    --map-overlay: hsl(222 47% 8% / 0.95);
+    --shadow-glass: 0 8px 32px 0 hsl(0 0% 0% / 0.3);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -100,6 +140,61 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  /* Civic Platform Utilities */
+  .civic-hero {
+    @apply bg-gradient-to-b from-background via-background/90 to-primary/5;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg;
+  }
+
+  .status-badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  .status-new {
+    @apply bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400;
+  }
+
+  .status-progress {
+    @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400;
+  }
+
+  .status-resolved {
+    @apply bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400;
+  }
+
+  .map-pin {
+    @apply w-4 h-4 rounded-full animate-pulse;
+  }
+
+  .floating-action {
+    @apply fixed bottom-6 right-6 z-50 rounded-full shadow-xl transition-transform hover:scale-110;
+  }
+}
+
+@layer components {
+  .btn-civic {
+    @apply inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-hero {
+    @apply btn-civic bg-primary text-primary-foreground shadow-[0_0_20px_hsl(var(--primary-glow)/0.4)] hover:shadow-[0_0_30px_hsl(var(--primary-glow)/0.6)] hover:scale-105;
+  }
+
+  .btn-hero-outline {
+    @apply btn-civic border-2 border-primary-foreground/20 text-primary-foreground backdrop-blur-sm hover:bg-primary-foreground/10 hover:scale-105;
+  }
+
+  .stat-card {
+    @apply relative overflow-hidden rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+
+  .admin-card {
+    @apply rounded-xl bg-card border border-border shadow-sm p-6 transition-all duration-200 hover:shadow-md;
   }
 }
