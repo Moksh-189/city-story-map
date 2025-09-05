@@ -9,7 +9,7 @@ import citizen1 from "@/assets/citizen-1.jpg";
 const stories = [
   {
     id: 1,
-    name: "Sarah Mitchell",
+    name: "Aarav Mehta",
     avatar: citizen1,
     issue: "Reported a dangerous pothole near the elementary school",
     resolution: "The pothole was fixed within 24 hours, making the route safe for children again!",
@@ -21,7 +21,7 @@ const stories = [
   },
   {
     id: 2,
-    name: "Marcus Johnson",
+    name: "Kunal Sharma",
     avatar: citizen1, // We'll generate more images
     issue: "Broken playground equipment at Central Park",
     resolution: "New swing set installed and safety inspection completed. Kids are happy!",
@@ -33,7 +33,7 @@ const stories = [
   },
   {
     id: 3,
-    name: "Elena Rodriguez",
+    name: "Ananya Desai",
     avatar: citizen1,
     issue: "Flickering street lights causing safety concerns",
     resolution: "All 12 street lights on the block were upgraded to LED and are working perfectly.",
@@ -45,7 +45,7 @@ const stories = [
   },
   {
     id: 4,
-    name: "David Chen",
+    name: "Rohan Iyer",
     avatar: citizen1,
     issue: "Overgrown vegetation blocking pedestrian walkway",
     resolution: "City maintenance team cleared the path and scheduled regular trimming.",
@@ -59,11 +59,11 @@ const stories = [
 
 // Top reporters leaderboard
 const topReporters = [
-  { name: "Jennifer Adams", points: 850, reports: 23, badge: "Community Champion" },
-  { name: "Robert Kim", points: 720, reports: 19, badge: "Safety Guardian" },
-  { name: "Maria Santos", points: 680, reports: 17, badge: "Neighborhood Hero" },
-  { name: "James Wilson", points: 540, reports: 14, badge: "Active Citizen" },
-  { name: "Lisa Thompson", points: 420, reports: 11, badge: "Change Maker" }
+  { name: "Shruti Agarwal", points: 850, reports: 23, badge: "Community Champion" },
+  { name: "Aditya Rao", points: 720, reports: 19, badge: "Safety Guardian" },
+  { name: "Tanvi Verma", points: 680, reports: 17, badge: "Neighborhood Hero" },
+  { name: "Viraj Malhotra", points: 540, reports: 14, badge: "Active Citizen" },
+  { name: "Meera Chauhan", points: 420, reports: 11, badge: "Change Maker" }
 ];
 
 const CommunityStories = () => {
