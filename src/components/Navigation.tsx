@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MapPin, Menu, X, Users, BarChart3, Settings } from "lucide-react";
 
@@ -19,7 +20,7 @@ const Navigation = () => {
     { name: "Dashboard", href: "#dashboard", icon: BarChart3 },
     { name: "Map", href: "#map", icon: MapPin },
     { name: "Community", href: "#community", icon: Users },
-    { name: "Admin", href: "#admin", icon: Settings }
+    { name: "Admin", href: "/admin/login", icon: Settings, isRoute: true }
   ];
 
   return (
@@ -42,14 +43,25 @@ const Navigation = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="flex items-center gap-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
-              >
-                <item.icon className="w-4 h-4" />
-                {item.name}
-              </a>
+              item.isRoute ? (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="flex items-center gap-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                >
+                  <item.icon className="w-4 h-4" />
+                  {item.name}
+                </Link>
+              ) : (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="flex items-center gap-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                >
+                  <item.icon className="w-4 h-4" />
+                  {item.name}
+                </a>
+              )
             ))}
           </div>
 
@@ -80,15 +92,27 @@ const Navigation = () => {
           <div className="md:hidden absolute top-16 left-0 right-0 glass-card backdrop-blur-xl border-t border-border/50 shadow-lg">
             <div className="p-6 space-y-4">
               {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="flex items-center gap-3 text-foreground/80 hover:text-primary transition-colors py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <item.icon className="w-5 h-5" />
-                  {item.name}
-                </a>
+                item.isRoute ? (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="flex items-center gap-3 text-foreground/80 hover:text-primary transition-colors py-2"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <item.icon className="w-5 h-5" />
+                    {item.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="flex items-center gap-3 text-foreground/80 hover:text-primary transition-colors py-2"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <item.icon className="w-5 h-5" />
+                    {item.name}
+                  </a>
+                )
               ))}
               <div className="pt-4 border-t border-border/50 space-y-3">
                 <Button variant="outline" className="w-full">
