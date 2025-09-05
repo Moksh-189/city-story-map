@@ -83,7 +83,7 @@ const AdminIssues = () => {
   assignedTo: "Meera Chauhan",
   images: 2
 }
-]
+];
 
   const getStatusColor = (status: string) => {
     switch (status) {
