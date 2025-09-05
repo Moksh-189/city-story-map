@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { MapPin, Users, TrendingUp } from "lucide-react";
 import heroMapBackground from "@/assets/hero-map-background.jpg";
+import { useNavigate } from "react-router-dom"; // ✅ import navigation hook
 
 const HeroSection = () => {
+  const navigate = useNavigate(); // ✅ initialize navigation
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background with map image */}
@@ -38,10 +41,17 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <Button variant="default" size="lg" className="btn-hero group">
+            {/* ✅ Navigate to /report on click */}
+            <Button 
+              variant="default" 
+              size="lg" 
+              className="btn-hero group"
+              onClick={() => navigate("/report")}
+            >
               <MapPin className="w-5 h-5 mr-2 group-hover:animate-bounce" />
               Report an Issue
             </Button>
+            
             <Button variant="outline" size="lg" className="btn-hero-outline">
               <Users className="w-5 h-5 mr-2" />
               View Community Map
