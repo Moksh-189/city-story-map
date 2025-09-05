@@ -11,61 +11,62 @@ import {
 
 const AdminNotifications = () => {
   const notifications = [
-    {
-      id: 1,
-      type: "new_issue",
-      title: "New Issue Reported: Pothole on Main Street",
-      description: "John Doe reported a large pothole causing traffic issues",
-      location: "Main St & 5th Ave",
-      priority: "high",
-      timestamp: "2 minutes ago",
-      read: false,
-      reportedBy: "John Doe",
-      issueId: "ISS-2024-001"
-    },
-    {
-      id: 2,
-      type: "urgent_issue",
-      title: "Urgent: Water Main Break",
-      description: "Emergency water main break affecting entire Oak Street district",
-      location: "Oak Street District",
-      priority: "urgent",
-      timestamp: "15 minutes ago",
-      read: false,
-      reportedBy: "Sarah Wilson",
-      issueId: "ISS-2024-002"
-    },
-    {
-      id: 3,
-      type: "issue_resolved",
-      title: "Issue Resolved: Broken Street Light",
-      description: "Street light on Park Ave has been successfully repaired",
-      location: "Park Ave & 2nd St",
-      priority: "medium",
-      timestamp: "1 hour ago",
-      read: false,
-      resolvedBy: "Maintenance Team A",
-      issueId: "ISS-2024-003"
-    },
-    {
-      id: 4,
-      type: "new_user",
-      title: "New User Registration",
-      description: "Mike Johnson has registered as a new community member",
-      timestamp: "2 hours ago",
-      read: true,
-      userId: "USR-2024-012"
-    },
-    {
-      id: 5,
-      type: "system_alert",
-      title: "System Maintenance Scheduled",
-      description: "Scheduled maintenance will begin at 2:00 AM tomorrow",
-      timestamp: "3 hours ago",
-      read: true,
-      category: "system"
-    }
-  ];
+  {
+    id: 1,
+    type: "new_issue",
+    title: "New Issue Reported: Pothole on MG Road",
+    description: "Aarav Mehta reported a large pothole causing traffic issues",
+    location: "MG Road & Brigade Road, Bengaluru",
+    priority: "high",
+    timestamp: "2 minutes ago",
+    read: false,
+    reportedBy: "Aarav Mehta",
+    issueId: "ISS-2024-001"
+  },
+  {
+    id: 2,
+    type: "urgent_issue",
+    title: "Urgent: Water Leak on Anna Salai",
+    description: "Ishita Ghosh reported an underground water pipe leak causing flooding on the sidewalk",
+    location: "Anna Salai & Mount Road, Chennai",
+    priority: "urgent",
+    timestamp: "15 minutes ago",
+    read: false,
+    reportedBy: "Ishita Ghosh",
+    issueId: "ISS-2024-004"
+  },
+  {
+    id: 3,
+    type: "issue_resolved",
+    title: "Issue Resolved: Garbage Collection Missed",
+    description: "Garbage pickup in Shivaji Nagar has been completed and bins cleared",
+    location: "Shivaji Nagar, Pune",
+    priority: "low",
+    timestamp: "1 hour ago",
+    read: false,
+    resolvedBy: "Waste Management Team",
+    issueId: "ISS-2024-003"
+  },
+  {
+    id: 4,
+    type: "new_user",
+    title: "New User Registration",
+    description: "Arnav Kulkarni has registered as a new community member",
+    timestamp: "2 hours ago",
+    read: true,
+    userId: "USR-2024-012"
+  },
+  {
+    id: 5,
+    type: "system_alert",
+    title: "System Maintenance Scheduled",
+    description: "Scheduled maintenance will begin at 2:00 AM IST tomorrow",
+    timestamp: "3 hours ago",
+    read: true,
+    category: "system"
+  }
+];
+
 
   const getNotificationIcon = (type: string) => {
     switch (type) {
