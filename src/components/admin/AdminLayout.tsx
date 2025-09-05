@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { 
   BarChart3, Users, Settings, MapPin, MessageSquare, 
@@ -13,6 +13,7 @@ interface AdminLayoutProps {
 const AdminLayout = ({ children }: AdminLayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const sidebarItems = [
     { name: "Dashboard", href: "/admin/dashboard", icon: BarChart3, exact: true },
@@ -21,6 +22,18 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
     { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
     { name: "Settings", href: "/admin/settings", icon: Settings }
   ];
+
+  const handleBackToSite = () => {
+    navigate('/');
+  };
+
+  const handleSignOut = () => {
+    navigate('/admin/login');
+  };
+
+  const handleNotificationClick = () => {
+    navigate('/admin/notifications');
+  };
 
   const isActive = (href: string, exact?: boolean) => {
     if (exact) {
@@ -86,11 +99,11 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
 
         {/* Bottom Actions */}
         <div className="absolute bottom-6 left-4 right-4 space-y-2">
-          <Button variant="outline" className="w-full justify-start">
+          <Button variant="outline" className="w-full justify-start" onClick={handleBackToSite}>
             <Home className="w-4 h-4 mr-2" />
             Back to Site
           </Button>
-          <Button variant="ghost" className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50">
+          <Button variant="ghost" className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50" onClick={handleSignOut}>
             <LogOut className="w-4 h-4 mr-2" />
             Sign Out
           </Button>
@@ -111,7 +124,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
           </Button>
 
           <div className="flex items-center gap-4 ml-auto">
-            <Button variant="ghost" size="icon" className="relative">
+            <Button variant="ghost" size="icon" className="relative" onClick={handleNotificationClick}>
               <Bell className="w-5 h-5" />
               <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
             </Button>

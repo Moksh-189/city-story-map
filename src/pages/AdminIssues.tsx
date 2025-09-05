@@ -3,13 +3,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { 
   Search, Filter, MapPin, Calendar, User, 
   AlertCircle, CheckCircle, Clock, Eye, Edit,
   Plus, Download, RefreshCw
 } from "lucide-react";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 const AdminIssues = () => {
+  const [sortBy, setSortBy] = useState("newest");
+  const [filterStatus, setFilterStatus] = useState("all");
+  const [searchTerm, setSearchTerm] = useState("");
+  const { toast } = useToast();
   const issues = [
     {
       id: "ISS-2024-001",
@@ -104,6 +111,42 @@ const AdminIssues = () => {
     });
   };
 
+  const handleViewIssue = (issueId: string) => {
+    toast({
+      title: "View Issue",
+      description: `Opening details for ${issueId}`,
+    });
+  };
+
+  const handleEditIssue = (issueId: string) => {
+    toast({
+      title: "Edit Issue", 
+      description: `Opening edit form for ${issueId}`,
+    });
+  };
+
+  // Filter and sort issues
+  const filteredIssues = issues
+    .filter(issue => {
+      const matchesSearch = issue.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           issue.location.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesStatus = filterStatus === "all" || issue.status === filterStatus;
+      return matchesSearch && matchesStatus;
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case "newest":
+          return new Date(b.reportedAt).getTime() - new Date(a.reportedAt).getTime();
+        case "oldest":
+          return new Date(a.reportedAt).getTime() - new Date(b.reportedAt).getTime();
+        case "priority":
+          const priorityOrder = { high: 3, medium: 2, low: 1 };
+          return priorityOrder[b.priority] - priorityOrder[a.priority];
+        default:
+          return 0;
+      }
+    });
+
   return (
     <AdminLayout>
       <div className="space-y-6 p-6">
@@ -190,22 +233,33 @@ const AdminIssues = () => {
                   <Input 
                     placeholder="Search issues by ID, title, or location..." 
                     className="pl-10"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
               </div>
               <div className="flex gap-2">
-                <Button variant="outline" size="sm">
-                  <Filter className="w-4 h-4 mr-2" />
-                  Status
-                </Button>
-                <Button variant="outline" size="sm">
-                  <MapPin className="w-4 h-4 mr-2" />
-                  Category
-                </Button>
-                <Button variant="outline" size="sm">
-                  <Calendar className="w-4 h-4 mr-2" />
-                  Date Range
-                </Button>
+                <Select value={filterStatus} onValueChange={setFilterStatus}>
+                  <SelectTrigger className="w-32">
+                    <SelectValue placeholder="Status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Status</SelectItem>
+                    <SelectItem value="new">New</SelectItem>
+                    <SelectItem value="progress">In Progress</SelectItem>
+                    <SelectItem value="resolved">Resolved</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select value={sortBy} onValueChange={setSortBy}>
+                  <SelectTrigger className="w-32">
+                    <SelectValue placeholder="Sort By" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="newest">Newest</SelectItem>
+                    <SelectItem value="oldest">Oldest</SelectItem>
+                    <SelectItem value="priority">Priority</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           </CardContent>
@@ -233,7 +287,7 @@ const AdminIssues = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {issues.map((issue) => (
+                  {filteredIssues.map((issue) => (
                     <tr key={issue.id} className="border-b hover:bg-muted/50 transition-colors">
                       <td className="py-4 text-sm font-mono">{issue.id}</td>
                       <td className="py-4">
@@ -276,10 +330,10 @@ const AdminIssues = () => {
                       </td>
                       <td className="py-4">
                         <div className="flex gap-1">
-                          <Button variant="ghost" size="sm">
+                          <Button variant="ghost" size="sm" onClick={() => handleViewIssue(issue.id)}>
                             <Eye className="w-4 h-4" />
                           </Button>
-                          <Button variant="ghost" size="sm">
+                          <Button variant="ghost" size="sm" onClick={() => handleEditIssue(issue.id)}>
                             <Edit className="w-4 h-4" />
                           </Button>
                         </div>

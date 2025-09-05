@@ -9,6 +9,10 @@ import {
   AlertCircle, CheckCircle, Clock, Users, TrendingUp, 
   MapPin, MessageSquare, Bell, Download 
 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { Link, useNavigate } from "react-router-dom";
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 // Mock data for charts
 const issuesTrendData = [
@@ -39,6 +43,85 @@ const responseTimeData = [
 ];
 
 const AdminDashboard = () => {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const handleExportReport = () => {
+    const doc = new jsPDF();
+    
+    // Add title
+    doc.setFontSize(20);
+    doc.text('Admin Dashboard Report', 20, 20);
+    
+    // Add date
+    doc.setFontSize(12);
+    doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 20, 35);
+    
+    // Add stats
+    doc.setFontSize(14);
+    doc.text('Key Statistics:', 20, 55);
+    
+    const statsData = [
+      ['Total Issues', '2,156'],
+      ['Resolved Issues', '1,247'],  
+      ['Active Users', '5,832'],
+      ['Avg Response Time', '24hrs']
+    ];
+    
+    (autoTable as any)(doc, {
+      startY: 65,
+      head: [['Metric', 'Value']],
+      body: statsData,
+    });
+    
+    // Add recent issues
+    doc.text('Recent Issues:', 20, (doc as any).lastAutoTable?.finalY + 20 || 150);
+    
+    const issuesData = recentIssues.map(issue => [
+      issue.id,
+      issue.title,
+      issue.location,
+      issue.status,
+      issue.priority,
+      issue.reportedBy
+    ]);
+    
+    (autoTable as any)(doc, {
+      startY: (doc as any).lastAutoTable?.finalY + 30 || 170,
+      head: [['ID', 'Title', 'Location', 'Status', 'Priority', 'Reporter']],
+      body: issuesData,
+    });
+    
+    doc.save('admin-dashboard-report.pdf');
+    toast({
+      title: "Report Exported",
+      description: "Dashboard report has been exported as PDF",
+    });
+  };
+
+  const handleNotificationClick = () => {
+    navigate('/admin/notifications');
+  };
+
+  const handleViewAllIssues = () => {
+    navigate('/admin/issues');
+  };
+
+  const handleViewIssue = (issueId: string) => {
+    // In a real app, this would navigate to issue detail page
+    toast({
+      title: "View Issue",
+      description: `Opening details for ${issueId}`,
+    });
+  };
+
+  const handleUpdateIssue = (issueId: string) => {
+    // In a real app, this would open edit modal or navigate to edit page
+    toast({
+      title: "Update Issue",
+      description: `Opening update form for ${issueId}`,
+    });
+  };
   const dashboardStats = [
     {
       title: "Total Issues",
@@ -131,11 +214,11 @@ const AdminDashboard = () => {
           <p className="text-muted-foreground">Monitor and manage community issues</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" onClick={handleExportReport}>
             <Download className="w-4 h-4 mr-2" />
             Export Report
           </Button>
-          <Button size="sm" className="relative">
+          <Button size="sm" className="relative" onClick={handleNotificationClick}>
             <Bell className="w-4 h-4 mr-2" />
             Notifications
             <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full text-xs"></span>
@@ -256,7 +339,7 @@ const AdminDashboard = () => {
               <MessageSquare className="w-5 h-5" />
               Recent Issues
             </div>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" onClick={handleViewAllIssues}>
               View All Issues
             </Button>
           </CardTitle>
@@ -297,8 +380,8 @@ const AdminDashboard = () => {
                     </td>
                     <td className="py-4">
                       <div className="flex gap-2">
-                        <Button variant="outline" size="sm">View</Button>
-                        <Button variant="outline" size="sm">Update</Button>
+                        <Button variant="outline" size="sm" onClick={() => handleViewIssue(issue.id)}>View</Button>
+                        <Button variant="outline" size="sm" onClick={() => handleUpdateIssue(issue.id)}>Update</Button>
                       </div>
                     </td>
                   </tr>
