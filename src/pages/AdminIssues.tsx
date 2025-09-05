@@ -18,72 +18,72 @@ const AdminIssues = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { toast } = useToast();
   const issues = [
-    {
-      id: "ISS-2024-001",
-      title: "Pothole on Main Street",
-      description: "Large pothole causing traffic issues and potential vehicle damage",
-      location: "Main St & 5th Ave",
-      category: "Roads",
-      status: "new",
-      priority: "high",
-      reportedAt: "2024-01-15T10:30:00Z",
-      reportedBy: "John Doe",
-      assignedTo: null,
-      images: 2
-    },
-    {
-      id: "ISS-2024-002", 
-      title: "Broken Street Light",
-      description: "Street light flickering and completely dark during night hours",
-      location: "Park Ave & 2nd St",
-      category: "Lighting",
-      status: "progress",
-      priority: "medium",
-      reportedAt: "2024-01-14T14:15:00Z",
-      reportedBy: "Sarah Wilson",
-      assignedTo: "Mike Johnson",
-      images: 1
-    },
-    {
-      id: "ISS-2024-003",
-      title: "Garbage Collection Missed",
-      description: "Scheduled pickup was missed, bins overflowing on multiple streets",
-      location: "Oak Street District",
-      category: "Waste",
-      status: "resolved",
-      priority: "low",
-      reportedAt: "2024-01-12T08:45:00Z",
-      reportedBy: "Mike Johnson",
-      assignedTo: "David Smith",
-      images: 0
-    },
-    {
-      id: "ISS-2024-004",
-      title: "Water Leak on Elm Street",
-      description: "Underground water pipe leak causing flooding on sidewalk",
-      location: "Elm St & 3rd Ave",
-      category: "Water",
-      status: "new",
-      priority: "high",
-      reportedAt: "2024-01-15T16:20:00Z",
-      reportedBy: "Lisa Brown",
-      assignedTo: null,
-      images: 3
-    },
-    {
-      id: "ISS-2024-005",
-      title: "Graffiti on Public Building",
-      description: "Vandalism reported on city hall exterior wall",
-      location: "City Hall, Downtown",
-      category: "Vandalism",
-      status: "progress",
-      priority: "medium",
-      reportedAt: "2024-01-13T11:00:00Z",
-      reportedBy: "Robert Davis",
-      assignedTo: "Sarah Wilson",
-      images: 2
-    }
-  ];
+   {
+  id: "ISS-2024-001",
+  title: "Pothole on MG Road",
+  description: "Large pothole causing traffic issues and potential vehicle damage",
+  location: "MG Road , Bengaluru",
+  category: "Roads",
+  status: "new",
+  priority: "high",
+  reportedAt: "2024-01-15T10:30:00Z",
+  reportedBy: "Aarav Mehta",
+  assignedTo: null,
+  images: 2
+},
+{
+  id: "ISS-2024-002", 
+  title: "Broken Street Light",
+  description: "Street light flickering and completely dark during night hours",
+  location: "Lodhi Road, Delhi",
+  category: "Lighting",
+  status: "progress",
+  priority: "medium",
+  reportedAt: "2024-01-14T14:15:00Z",
+  reportedBy: "Shruti Agarwal",
+  assignedTo: "Rohan Iyer",
+  images: 1
+},
+{
+  id: "ISS-2024-003",
+  title: "Garbage Collection Missed",
+  description: "Scheduled pickup was missed, bins overflowing on multiple streets",
+  location: "Shivaji Nagar, Pune",
+  category: "Waste",
+  status: "resolved",
+  priority: "low",
+  reportedAt: "2024-01-12T08:45:00Z",
+  reportedBy: "Rohan Iyer",
+  assignedTo: "Tanvi Verma",
+  images: 0
+},
+{
+  id: "ISS-2024-004",
+  title: "Water Leak on Anna Salai",
+  description: "Underground water pipe leak causing flooding on sidewalk",
+  location: "Anna Salai, Chennai",
+  category: "Water",
+  status: "new",
+  priority: "high",
+  reportedAt: "2024-01-15T16:20:00Z",
+  reportedBy: "Ishita Ghosh",
+  assignedTo: null,
+  images: 3
+},
+{
+  id: "ISS-2024-005",
+  title: "Graffiti on Public Building",
+  description: "Vandalism reported on municipal office exterior wall",
+  location: "Municipal Office, Connaught Place, Delhi",
+  category: "Vandalism",
+  status: "progress",
+  priority: "medium",
+  reportedAt: "2024-01-13T11:00:00Z",
+  reportedBy: "Aditya Rao",
+  assignedTo: "Meera Chauhan",
+  images: 2
+}
+
 
   const getStatusColor = (status: string) => {
     switch (status) {
