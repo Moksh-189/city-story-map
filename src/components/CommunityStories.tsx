@@ -13,7 +13,7 @@ const stories = [
     avatar: citizen1,
     issue: "Reported a dangerous pothole near the elementary school",
     resolution: "The pothole was fixed within 24 hours, making the route safe for children again!",
-    location: "Maple Street",
+    location: "MG Road, Bengaluru",
     timeToResolve: "24 hours",
     impactPoints: 150,
     category: "Road Safety",
@@ -25,7 +25,7 @@ const stories = [
     avatar: citizen1, // We'll generate more images
     issue: "Broken playground equipment at Central Park",
     resolution: "New swing set installed and safety inspection completed. Kids are happy!",
-    location: "Central Park",
+    location: "Nehru Park, Delhi",
     timeToResolve: "3 days",
     impactPoints: 200,
     category: "Recreation",
@@ -37,7 +37,7 @@ const stories = [
     avatar: citizen1,
     issue: "Flickering street lights causing safety concerns",
     resolution: "All 12 street lights on the block were upgraded to LED and are working perfectly.",
-    location: "Oak Avenue",
+    location: "Ashok Nagar, Mumbai",
     timeToResolve: "5 days",
     impactPoints: 180,
     category: "Lighting",
@@ -49,7 +49,7 @@ const stories = [
     avatar: citizen1,
     issue: "Overgrown vegetation blocking pedestrian walkway",
     resolution: "City maintenance team cleared the path and scheduled regular trimming.",
-    location: "River Walk Trail",
+    location: "Marina Beach Road, Chennai",
     timeToResolve: "2 days",
     impactPoints: 120,
     category: "Maintenance",
@@ -65,6 +65,7 @@ const topReporters = [
   { name: "Viraj Malhotra", points: 540, reports: 14, badge: "Active Citizen" },
   { name: "Meera Chauhan", points: 420, reports: 11, badge: "Change Maker" }
 ];
+
 
 const CommunityStories = () => {
   const [currentStory, setCurrentStory] = useState(0);
