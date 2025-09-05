@@ -15,7 +15,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
   const location = useLocation();
 
   const sidebarItems = [
-    { name: "Dashboard", href: "/admin", icon: BarChart3, exact: true },
+    { name: "Dashboard", href: "/admin/dashboard", icon: BarChart3, exact: true },
     { name: "Issues", href: "/admin/issues", icon: MessageSquare },
     { name: "Users", href: "/admin/users", icon: Users },
     { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
