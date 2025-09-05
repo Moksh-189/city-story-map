@@ -82,7 +82,7 @@ const Index = () => {
                 <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
                   <MapPin className="w-5 h-5 text-white" />
                 </div>
-                <span className="font-display font-bold text-lg">CivicConnect</span>
+                <span className="font-display font-bold text-lg">CivicSENSE</span>
               </div>
               <p className="text-sm text-muted-foreground">
                 Empowering communities through civic engagement and transparent governance.
