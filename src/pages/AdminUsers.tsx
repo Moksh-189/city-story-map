@@ -17,40 +17,40 @@ import {
 
 const AdminUsers = () => {
   const users = [
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john.doe@email.com",
-      role: "Citizen",
-      status: "active",
-      issuesReported: 12,
-      joinedDate: "2024-01-15",
-      lastActive: "2 hours ago",
-      avatar: "/placeholder.svg"
-    },
-    {
-      id: 2,
-      name: "Sarah Wilson",
-      email: "sarah.wilson@email.com",
-      role: "Moderator",
-      status: "active",
-      issuesReported: 8,
-      joinedDate: "2023-11-20",
-      lastActive: "1 day ago",
-      avatar: "/placeholder.svg"
-    },
-    {
-      id: 3,
-      name: "Mike Johnson",
-      email: "mike.johnson@email.com",
-      role: "Citizen",
-      status: "inactive",
-      issuesReported: 25,
-      joinedDate: "2023-08-10",
-      lastActive: "1 week ago",
-      avatar: "/placeholder.svg"
-    }
-  ];
+  {
+    id: 1,
+    name: "Aarav Mehta",
+    email: "aarav.mehta@email.com",
+    role: "Citizen",
+    status: "active",
+    issuesReported: 12,
+    joinedDate: "2024-01-15",
+    lastActive: "2 hours ago",
+    avatar: "/placeholder.svg"
+  },
+  {
+    id: 2,
+    name: "Shruti Agarwal",
+    email: "shruti.agarwal@email.com",
+    role: "Moderator",
+    status: "active",
+    issuesReported: 8,
+    joinedDate: "2023-11-20",
+    lastActive: "1 day ago",
+    avatar: "/placeholder.svg"
+  },
+  {
+    id: 3,
+    name: "Rohan Iyer",
+    email: "rohan.iyer@email.com",
+    role: "Citizen",
+    status: "inactive",
+    issuesReported: 25,
+    joinedDate: "2023-08-10",
+    lastActive: "1 week ago",
+    avatar: "/placeholder.svg"
+  }
+];
 
   const getUserStats = () => ({
     total: users.length,
