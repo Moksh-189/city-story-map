@@ -41,9 +41,14 @@ const Index = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" variant="secondary" className="group">
+              <Button 
+                size="lg" 
+                variant="secondary" 
+                className="group"
+                onClick={() => window.location.href = '/signup'}
+              >
                 <MapPin className="w-5 h-5 mr-2 group-hover:animate-bounce" />
-                Report Your First Issue
+                Get Started Today
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button 
