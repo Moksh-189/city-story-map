@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { MapPin, Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { MapPin, Mail, Lock, Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -13,22 +13,52 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  
+  const redirectTo = searchParams.get('redirect') || '/dashboard';
+  const context = searchParams.get('context');
+
+  useEffect(() => {
+    // Check if user is already logged in
+    const checkAuth = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        navigate(redirectTo);
+      }
+    };
+    checkAuth();
+  }, [navigate, redirectTo]);
+
+  const getContextMessage = () => {
+    if (context === 'volunteer') {
+      return "Sign in to explore volunteer opportunities";
+    }
+    if (redirectTo.includes('report-issue')) {
+      return "Sign in to report community issues";
+    }
+    if (redirectTo.includes('events')) {
+      return "Sign in to join community events";
+    }
+    return "Enter your credentials to access your dashboard";
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (error) {
         toast.error(error.message);
-      } else {
+      } else if (data.user) {
         toast.success("Welcome back to civicSENSE!");
-        window.location.href = "/dashboard";
+        // Navigate to the intended destination or dashboard
+        navigate(redirectTo);
       }
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
@@ -40,6 +70,17 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center p-6">
       <div className="w-full max-w-md">
+        {/* Back to Community Button */}
+        <div className="mb-6">
+          <Link 
+            to="/community" 
+            className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Community
+          </Link>
+        </div>
+
         {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-3 mb-2">
@@ -51,11 +92,20 @@ const Login = () => {
           <p className="text-muted-foreground">Welcome back to your community</p>
         </div>
 
+        {/* Context Alert */}
+        {context && (
+          <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <p className="text-sm text-blue-800 text-center">
+              {getContextMessage()}
+            </p>
+          </div>
+        )}
+
         <Card className="glass-card">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl">Sign In</CardTitle>
             <CardDescription>
-              Enter your credentials to access your dashboard
+              {getContextMessage()}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -116,7 +166,10 @@ const Login = () => {
             <div className="mt-6 text-center">
               <p className="text-sm text-muted-foreground">
                 Don't have an account?{" "}
-                <Link to="/signup" className="text-primary hover:underline font-medium">
+                <Link 
+                  to={`/signup${redirectTo !== '/dashboard' ? `?redirect=${redirectTo}` : ''}${context ? `&context=${context}` : ''}`} 
+                  className="text-primary hover:underline font-medium"
+                >
                   Sign up here
                 </Link>
               </p>
