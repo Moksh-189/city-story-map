@@ -13,6 +13,7 @@ import AdminSettings from "./pages/AdminSettings";
 import AdminNotifications from "./pages/AdminNotifications";
 import NotFound from "./pages/NotFound";
 import ReportIssue from "./pages/ReportIssue"; // ✅ import new page
+import Community from "./pages/Community";
 
 const queryClient = new QueryClient();
 
@@ -32,8 +33,9 @@ const App = () => (
           <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/admin/notifications" element={<AdminNotifications />} />
 
-          {/* ✅ New route */}
+          {/* ✅ New routes */}
           <Route path="/report" element={<ReportIssue />} />
+          <Route path="/community" element={<Community />} />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
