@@ -49,11 +49,11 @@ const AdminSettings = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="siteName">Site Name</Label>
-                      <Input id="siteName" defaultValue="CivicConnect" />
+                      <Input id="siteName" defaultValue="civicSENSE" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="adminEmail">Admin Email</Label>
-                      <Input id="adminEmail" type="email" defaultValue="admin@civicconnect.com" />
+                      <Input id="adminEmail" type="email" defaultValue="admin@civicsense.com" />
                     </div>
                   </div>
                   <div className="space-y-2">
@@ -143,7 +143,7 @@ const AdminSettings = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="notificationEmail">Notification Email</Label>
-                    <Input id="notificationEmail" type="email" defaultValue="notifications@civicconnect.com" />
+                    <Input id="notificationEmail" type="email" defaultValue="notifications@civicsense.com" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="urgentPhone">Urgent Issues Phone</Label>

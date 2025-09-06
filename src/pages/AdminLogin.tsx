@@ -47,7 +47,7 @@ const AdminLogin = () => {
                     <Input
                       id="email"
                       type="email"
-                      placeholder="admin@civicconnect.com"
+                      placeholder="admin@civicsense.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="pl-10 h-12 bg-background border-border focus:border-primary"
@@ -95,7 +95,7 @@ const AdminLogin = () => {
 
         {/* Footer */}
         <div className="text-center text-sm text-muted-foreground">
-          <p>© 2024 CivicConnect. Secure admin access.</p>
+          <p>© 2024 civicSENSE. Secure admin access.</p>
         </div>
       </div>
     </div>

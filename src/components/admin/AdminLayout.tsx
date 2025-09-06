@@ -64,7 +64,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
           </div>
           <div>
             <h1 className="font-display font-bold text-lg">Admin Panel</h1>
-            <p className="text-xs text-muted-foreground">CivicConnect</p>
+            <p className="text-xs text-muted-foreground">civicSENSE</p>
           </div>
           <Button 
             variant="ghost" 
@@ -135,7 +135,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
               </div>
               <div className="text-sm">
                 <div className="font-medium">Admin User</div>
-                <div className="text-muted-foreground text-xs">admin@civicconnect.com</div>
+                <div className="text-muted-foreground text-xs">admin@civicsense.com</div>
               </div>
             </div>
           </div>

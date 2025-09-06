@@ -35,7 +35,7 @@ const Navigation = () => {
               <MapPin className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="font-display font-bold text-xl text-foreground">CivicConnect</h1>
+              <h1 className="font-display font-bold text-xl text-foreground">civicSENSE</h1>
               <p className="text-xs text-muted-foreground">Community First</p>
             </div>
           </div>
