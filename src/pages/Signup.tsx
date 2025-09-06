@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { MapPin, Mail, Lock, User, Phone, Eye, EyeOff } from "lucide-react";
+import { MapPin, Mail, Lock, User, Phone, Eye, EyeOff, ArrowLeft, Heart, FileText } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -21,6 +21,48 @@ const Signup = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  
+  const redirectTo = searchParams.get('redirect') || '/dashboard';
+  const context = searchParams.get('context');
+
+  useEffect(() => {
+    // Check if user is already logged in
+    const checkAuth = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        navigate(redirectTo);
+      }
+    };
+    checkAuth();
+  }, [navigate, redirectTo]);
+
+  const getContextMessage = () => {
+    if (context === 'volunteer') {
+      return "Join our community to start volunteering";
+    }
+    if (redirectTo.includes('report-issue')) {
+      return "Create account to report community issues";
+    }
+    if (redirectTo.includes('events')) {
+      return "Sign up to participate in community events";
+    }
+    return "Start making a difference in your neighborhood";
+  };
+
+  const getContextIcon = () => {
+    if (context === 'volunteer') {
+      return <Heart className="w-5 h-5 text-red-500" />;
+    }
+    if (redirectTo.includes('report-issue')) {
+      return <MapPin className="w-5 h-5 text-blue-500" />;
+    }
+    if (redirectTo.includes('events')) {
+      return <FileText className="w-5 h-5 text-green-500" />;
+    }
+    return null;
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
@@ -37,6 +79,11 @@ const Signup = () => {
       return;
     }
 
+    if (formData.password.length < 6) {
+      toast.error("Password must be at least 6 characters long");
+      return;
+    }
+
     if (!acceptTerms) {
       toast.error("Please accept the terms and conditions");
       return;
@@ -45,7 +92,7 @@ const Signup = () => {
     setIsLoading(true);
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
         options: {
@@ -58,9 +105,10 @@ const Signup = () => {
 
       if (error) {
         toast.error(error.message);
-      } else {
+      } else if (data.user) {
         toast.success("Welcome to civicSENSE! Please check your email to verify your account.");
-        window.location.href = "/dashboard";
+        // Navigate to intended destination or dashboard
+        navigate(redirectTo);
       }
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
@@ -72,6 +120,17 @@ const Signup = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center p-6">
       <div className="w-full max-w-md">
+        {/* Back to Community Button */}
+        <div className="mb-6">
+          <Link 
+            to="/community" 
+            className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Community
+          </Link>
+        </div>
+
         {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-3 mb-2">
@@ -83,11 +142,23 @@ const Signup = () => {
           <p className="text-muted-foreground">Join your community today</p>
         </div>
 
+        {/* Context Alert */}
+        {context && (
+          <div className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-lg">
+            <div className="flex items-center justify-center gap-2">
+              {getContextIcon()}
+              <p className="text-sm text-blue-800 font-medium">
+                {getContextMessage()}
+              </p>
+            </div>
+          </div>
+        )}
+
         <Card className="glass-card">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl">Create Account</CardTitle>
             <CardDescription>
-              Start making a difference in your neighborhood
+              {getContextMessage()}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -217,7 +288,10 @@ const Signup = () => {
             <div className="mt-6 text-center">
               <p className="text-sm text-muted-foreground">
                 Already have an account?{" "}
-                <Link to="/login" className="text-primary hover:underline font-medium">
+                <Link 
+                  to={`/login${redirectTo !== '/dashboard' ? `?redirect=${redirectTo}` : ''}${context ? `&context=${context}` : ''}`} 
+                  className="text-primary hover:underline font-medium"
+                >
                   Sign in here
                 </Link>
               </p>
