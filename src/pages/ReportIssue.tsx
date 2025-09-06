@@ -9,6 +9,8 @@ const ReportIssueForm = () => {
     file: null,
   });
 
+  const [isDetectingLocation, setIsDetectingLocation] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, files } = e.target as HTMLInputElement;
     setFormData({
@@ -30,6 +32,54 @@ const ReportIssueForm = () => {
       location: "",
       file: null,
     });
+  };
+
+  const detectLocation = () => {
+    setIsDetectingLocation(true);
+    
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by this browser.");
+      setIsDetectingLocation(false);
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        
+        // Simple coordinates display
+        setFormData(prev => ({ 
+          ...prev, 
+          location: `${latitude.toFixed(6)}, ${longitude.toFixed(6)}` 
+        }));
+        
+        setIsDetectingLocation(false);
+      },
+      (error) => {
+        let errorMessage = "Unable to detect location. ";
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            errorMessage += "Please allow location access.";
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorMessage += "Location information unavailable.";
+            break;
+          case error.TIMEOUT:
+            errorMessage += "Location request timeout.";
+            break;
+          default:
+            errorMessage += "An unknown error occurred.";
+            break;
+        }
+        alert(errorMessage);
+        setIsDetectingLocation(false);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 300000 // 5 minutes
+      }
+    );
   };
 
   return (
@@ -119,7 +169,7 @@ const ReportIssueForm = () => {
                 name="location"
                 value={formData.location}
                 onChange={handleChange}
-                className="w-full rounded-xl border-2 border-border bg-background p-4 pl-12 text-foreground placeholder-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                className="w-full rounded-xl border-2 border-border bg-background p-4 pl-12 pr-32 text-foreground placeholder-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
                 placeholder="Enter specific location, street name, or nearby landmark"
                 required
               />
@@ -129,7 +179,36 @@ const ReportIssueForm = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
+              <button
+                type="button"
+                onClick={detectLocation}
+                disabled={isDetectingLocation}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary hover:bg-primary/90 text-primary-foreground px-3 py-1.5 rounded-lg text-xs font-medium transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
+              >
+                {isDetectingLocation ? (
+                  <>
+                    <svg className="w-3 h-3 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Detecting...
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Detect
+                  </>
+                )}
+              </button>
             </div>
+            <p className="text-xs text-muted-foreground flex items-center gap-1">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              Click "Detect" to automatically fill your current location
+            </p>
           </div>
 
           {/* File Upload */}
@@ -162,7 +241,7 @@ const ReportIssueForm = () => {
                   </p>
                 </div>
                 {formData.file && (
-                  <div className="flex items-center justify-center gap-2 text-sm text-green-600 bg-green-50 dark:bg-green-900/20 rounded-lg py-2 px-4">
+                  <div className="flex items-center justify-center gap-2 text-sm font-medium text-green-600 bg-green-50 dark:bg-green-900/20 rounded-lg py-2 px-4">
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
                     </svg>
