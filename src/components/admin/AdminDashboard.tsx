@@ -157,35 +157,35 @@ const AdminDashboard = () => {
     }
   ];
 
-  const recentIssues = [
-    {
-      id: "ISS-2024-001",
-      title: "Pothole on Main Street",
-      location: "Main St & 5th Ave",
-      status: "new",
-      priority: "high",
-      reportedAt: "2 hours ago",
-      reportedBy: "John Doe"
-    },
-    {
-      id: "ISS-2024-002",
-      title: "Broken Street Light",
-      location: "Park Ave & 2nd St",
-      status: "progress",
-      priority: "medium",
-      reportedAt: "1 day ago",
-      reportedBy: "Sarah Wilson"
-    },
-    {
-      id: "ISS-2024-003",
-      title: "Garbage Collection Missed",
-      location: "Oak Street District",
-      status: "resolved",
-      priority: "low",
-      reportedAt: "3 days ago",
-      reportedBy: "Mike Johnson"
-    }
-  ];
+ const recentIssues = [
+  {
+    id: "ISS-2024-001",
+    title: "Pothole on MG Road",
+    location: "MG Road, Bengaluru",
+    status: "new",
+    priority: "high",
+    reportedAt: "2 hours ago",
+    reportedBy: "Aarav Mehta"
+  },
+  {
+    id: "ISS-2024-002",
+    title: "Broken Street Light",
+    location: "Lodhi Road, Delhi",
+    status: "progress",
+    priority: "medium",
+    reportedAt: "1 day ago",
+    reportedBy: "Shruti Agarwal"
+  },
+  {
+    id: "ISS-2024-003",
+    title: "Garbage Collection Missed",
+    location: "Shivaji Nagar, Pune",
+    status: "resolved",
+    priority: "low",
+    reportedAt: "3 days ago",
+    reportedBy: "Rohan Iyer"
+  }
+   ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
